@@ -24,20 +24,25 @@ export default function LastImages() {
       <h2 className={styles.lastImgHeading}>Last images</h2>
       <div className={styles.desktopHolder}>
         <ul className={styles.list}>
-          {list.map(({ id, image, url, title, tags }) => (
+          {list?.map(({ id, image, url, title, tags }) => (
             <li key={id} className={styles.lastItem}>
+              <span className={styles.starRegular}></span>
               <img src={defaultImg} alt={title} />
               {/* <img src={image} alt={title}/> */}
               <div className={styles.lastImgDescription}>
                 <p className={styles.lastImgTitle}>{title}</p>
-                {tags.map(tag => (
+                {tags?.map(tag => (
                   <span className={styles.lastTag}>#{tag}</span>
                 ))}
               </div>
             </li>
           ))}
         </ul>
-        {width >= 960 && <div className={styles.aside}></div>}
+        {width >= 960 && (
+          <div className={styles.aside}>
+            <p className={styles.banner}>banner</p>
+          </div>
+        )}
       </div>
     </>
   );

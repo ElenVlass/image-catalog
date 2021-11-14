@@ -90,7 +90,7 @@ const initialImages = [
 ];
 
 const images = createReducer(initialImages, {
-  [fetchImagesSuccess]: (_, { payload }) => payload,
+  [fetchImagesSuccess]: (state, action) => state,
 });
 
 const loading = createReducer(false, {

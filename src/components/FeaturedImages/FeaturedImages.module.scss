@@ -55,7 +55,7 @@ img {
   }
 
   @include from(desktop) {
-    flex-basis: calc(100% / 2 - 15px);
+    // flex-basis: calc(100% / 2 - 15px);
     margin-right: 0;
     &:not(:first-child) {
       margin-bottom: 0;
@@ -68,6 +68,8 @@ img {
   position: relative;
   display: inline-flex;
   overflow: hidden;
+  // height: 250px;
+  // width: 100%;
 
   &::before {
     content: '';
@@ -101,6 +103,7 @@ img {
 
 .featuredTag {
   margin-right: 12px;
+  font-size: 12px;
   color: $tagsTextColor;
 }
 .GoBackBtn {
@@ -151,4 +154,10 @@ img {
   background-repeat: no-repeat;
   background-size: contain;
   z-index: 3;
+}
+.tagList {
+  @extend %list;
+}
+.tagItem {
+  display: inline-block;
 }

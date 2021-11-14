@@ -1,12 +1,10 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import PropTypes from 'prop-types';
 import styles from './FeaturedImages.module.scss';
 import { imageSelectors, operations } from '../../redux';
-import defaultImg from '../../images/img-default.jpeg';
 import useWindowDementions from '../../helpers/useWindowDementions';
-import { ReactComponent as GoBackIcon } from '../../images/icons/back.svg';
-import { ReactComponent as GoNextIcon } from '../../images/icons/next.svg';
+import { ReactComponent as GoBackIcon } from '../../icons/back.svg';
+import { ReactComponent as GoNextIcon } from '../../icons/next.svg';
 
 export default function FeaturedImages() {
   const dispatch = useDispatch();
@@ -33,13 +31,17 @@ export default function FeaturedImages() {
           </button>
           <div className={styles.thumb}>
             <span className={styles.starSolid}></span>
-            <img src={defaultImg} alt={title} className={styles.picture} />
-            {/* <img src={image} alt={title}/> */}
+            {/* <img src={defaultImg} alt={title} className={styles.picture} /> */}
+            <img src={image} alt={title} />
             <div className={styles.featuredImgDescription}>
               <p className={styles.featuredImgTitle}>{title}</p>
-              {tags?.map(tag => (
-                <span className={styles.featuredTag}>#{tag}</span>
-              ))}
+              <ul className={styles.tagList}>
+                {tags?.map(tag => (
+                  <li key={tag} className={styles.tagItem}>
+                    <span className={styles.featuredTag}>#{tag}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
           <ul className={styles.list}>
@@ -47,17 +49,20 @@ export default function FeaturedImages() {
               <li key={id} className={styles.featuredItem}>
                 <span className={styles.starSolid}></span>
                 <div className={styles.thumb}>
-                  <img
+                  {/* <img
                     src={defaultImg}
                     alt={title}
-                    className={styles.picture}
-                  />
-                  {/* <img src={image} alt={title}/> */}
+                  /> */}
+                  <img src={image} alt={title} />
                   <div className={styles.featuredImgDescription}>
                     <p className={styles.featuredImgTitle}>{title}</p>
-                    {tags?.map(tag => (
-                      <span className={styles.featuredTag}>#{tag}</span>
-                    ))}
+                    <ul className={styles.tagList}>
+                      {tags?.map(tag => (
+                        <li key={tag} className={styles.tagItem}>
+                          <span className={styles.featuredTag}>#{tag}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </li>
@@ -72,13 +77,17 @@ export default function FeaturedImages() {
           {list?.map(({ id, image, url, title, tags }) => (
             <li key={id} className={styles.featuredItem}>
               <div className={styles.thumb}>
-                <img src={defaultImg} alt={title} className={styles.picture} />
-                {/* <img src={image} alt={title}/> */}
+                {/* <img src={defaultImg} alt={title} className={styles.picture} /> */}
+                <img src={image} alt={title} />
                 <div className={styles.featuredImgDescription}>
                   <p className={styles.featuredImgTitle}>{title}</p>
-                  {tags?.map(tag => (
-                    <span className={styles.featuredTag}>#{tag}</span>
-                  ))}
+                  <ul className={styles.tagList}>
+                    {tags?.map(tag => (
+                      <li key={tag} className={styles.tagItem}>
+                        <span className={styles.featuredTag}>#{tag}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </li>

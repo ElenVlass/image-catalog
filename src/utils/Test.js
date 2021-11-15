@@ -10,8 +10,6 @@ export default function ShowTest() {
     .flatMap(({ tags }) => tags)
     .filter((tag, ind, arr) => arr.indexOf(tag) === ind);
 
-  const numberOfNodes = document.querySelectorAll('*').length;
-
   const getImagesByTag = (initialTags, list) => {
     return initialTags.reduce((acc, tag) => {
       list.forEach(({ id, tags }) => {
@@ -89,7 +87,7 @@ export default function ShowTest() {
     console.log(
       '%c numberOfNodes ',
       'color: white; background-color: #2274A5',
-      numberOfNodes,
+      document.querySelectorAll('*').length,
     );
     console.groupEnd();
     console.group(

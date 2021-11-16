@@ -31,7 +31,6 @@ export default function FeaturedImages() {
           </button>
           <div className={styles.thumb}>
             <span className={styles.starSolid}></span>
-            {/* <img src={defaultImg} alt={title} className={styles.picture} /> */}
             <img src={image} alt={title} />
             <div className={styles.featuredImgDescription}>
               <p className={styles.featuredImgTitle}>{title}</p>

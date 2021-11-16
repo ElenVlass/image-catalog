@@ -124,14 +124,12 @@ export default function ShowTest() {
   };
 
   return (
-    <>
-      <button
-        className={styles.button}
-        type="button"
-        onClick={() => showResultInLog()}
-      >
-        <span>Show test results in log</span>
-      </button>
-    </>
+    <button
+      className={styles.button}
+      type="button"
+      onClick={() => showResultInLog()}
+    >
+      <span>Show test results in log</span>
+    </button>
   );
 }

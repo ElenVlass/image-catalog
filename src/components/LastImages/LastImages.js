@@ -1,9 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import PropTypes from 'prop-types';
 import styles from './LastImages.module.scss';
 import { imageSelectors, operations } from '../../redux';
-// import defaultImg from '../../images/img-default.jpeg';
 import useWindowDementions from '../../helpers/useWindowDementions';
 
 export default function LastImages() {
@@ -27,7 +25,6 @@ export default function LastImages() {
           {list?.map(({ id, image, url, title, tags }) => (
             <li key={id} className={styles.lastItem}>
               {width >= 960 && <span className={styles.starRegular}></span>}
-              {/* <img src={defaultImg} alt={title} /> */}
               <img src={image} alt={title} />
               <div className={styles.lastImgDescription}>
                 <p className={styles.lastImgTitle}>{title}</p>

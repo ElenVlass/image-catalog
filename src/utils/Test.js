@@ -12,7 +12,7 @@ export default function ShowTest() {
     }
     mapOfTags[el.tagName].push(el);
 
-    if (el.children && el.children.length > 0) {
+    if (el.children.length > 0) {
       for (let i = 0; i < el.children.length; i++) {
         breadthFirstDetour(el.children[i]);
       }
@@ -34,12 +34,11 @@ export default function ShowTest() {
 
   function groupTagsByLengthName() {
     return Object.keys(mapOfTags).reduce((acc, tagName) => {
-      const tagNameLength = tagName.length;
-      console.log(acc, tagName, acc[tagNameLength], mapOfTags[tagName]);
+      const tagNameLength = `element(s) with tag length ${tagName.length}:`;
       if (!acc[tagNameLength]) {
         acc[tagNameLength] = mapOfTags[tagName];
       } else {
-        acc[tagNameLength].concat(mapOfTags[tagName]);
+        acc[tagNameLength].push(...mapOfTags[tagName]);
       }
       return acc;
     }, {});
@@ -51,6 +50,7 @@ export default function ShowTest() {
 
   const showResultInLog = () => {
     console.group('%c Task part 2 ', prettyLog('D33F49'));
+
     console.group('%c Task part 2.1 ', prettyLog('95B46A'));
     console.log(
       '%c numberOfNodes ',
@@ -58,18 +58,20 @@ export default function ShowTest() {
       countNumberOfNodes(document),
     );
     console.groupEnd();
+
     console.group('%c Task part 2.2 ', prettyLog('95B46A'));
     console.log('%c numberOfTags ', prettyLog('2274A5'));
     breadthFirstDetourDom();
     displayElementsCountInMap(mapOfTags);
-
     console.groupEnd();
+
     console.group('%c Task part 2.3 ', prettyLog('95B46A'));
     console.log('%c tagsByLengthName ', prettyLog('2274A5'));
     const mapOfElementsByTagLength = groupTagsByLengthName();
-    // console.log('%c numberTagsByLengthName ', prettyLog('2274A5'));
+    console.log('mapOfElementsByTagLength', mapOfElementsByTagLength);
     displayElementsCountInMap(mapOfElementsByTagLength);
     console.groupEnd();
+
     console.groupEnd();
   };
 

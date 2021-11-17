@@ -1,124 +1,74 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { imageSelectors } from '../redux';
 import styles from './Test.module.scss';
 
 export default function ShowTest() {
-  const imageList = useSelector(imageSelectors.getAllImages);
+  const countNumberOfNodes = element => element.querySelectorAll('*').length;
 
-  const uniqueTags = imageList
-    .flatMap(({ tags }) => tags)
-    .filter((tag, ind, arr) => arr.indexOf(tag) === ind);
+  let mapOfTags = {};
 
-  const getImagesByTag = (initialTags, list) => {
-    return initialTags.reduce((acc, tag) => {
-      list.forEach(({ id, tags }) => {
-        if (tags.includes(tag)) {
-          let property = `Id of element(s) with tag "${tag}"`;
-          if (!acc.hasOwnProperty(property)) {
-            acc[property] = [];
-          }
-          acc[property].push(id);
-        }
-      });
+  function breadthFirstDetour(el) {
+    if (!mapOfTags[el.tagName]) {
+      mapOfTags[el.tagName] = [];
+    }
+    mapOfTags[el.tagName].push(el);
+
+    if (el.children && el.children.length > 0) {
+      for (let i = 0; i < el.children.length; i++) {
+        breadthFirstDetour(el.children[i]);
+      }
+    }
+  }
+
+  // document has undefined tagName, so has to be skipped
+  function breadthFirstDetourDom() {
+    for (let i = 0; i < document.children.length; i++) {
+      breadthFirstDetour(document.children[i]);
+    }
+  }
+
+  function displayElementsCountInMap(mapOfElements) {
+    Object.entries(mapOfElements).forEach(([tagName, elements]) =>
+      console.log(tagName, elements.length),
+    );
+  }
+
+  function groupTagsByLengthName() {
+    return Object.keys(mapOfTags).reduce((acc, tagName) => {
+      const tagNameLength = tagName.length;
+      console.log(acc, tagName, acc[tagNameLength], mapOfTags[tagName]);
+      if (!acc[tagNameLength]) {
+        acc[tagNameLength] = mapOfTags[tagName];
+      } else {
+        acc[tagNameLength].concat(mapOfTags[tagName]);
+      }
       return acc;
     }, {});
-  };
+  }
 
-  const imagesByTag = getImagesByTag(uniqueTags, imageList);
-
-  const countImagesByTag = (initialTags, list) => {
-    return initialTags.reduce((acc, tag) => {
-      list.forEach(({ tags }) => {
-        if (tags.includes(tag)) {
-          let property = `Count of element(s) with tag "${tag}"`;
-          if (!acc.hasOwnProperty(property)) {
-            acc[property] = 0;
-          }
-          acc[property] += 1;
-        }
-      });
-      return acc;
-    }, {});
-  };
-
-  const numberImagesByTag = countImagesByTag(uniqueTags, imageList);
-
-  const countImagesByTagLength = (initialTags, list) => {
-    return initialTags.reduce((acc, tag) => {
-      list.forEach(({ id, tags }) => {
-        if (tags.includes(tag)) {
-          let numberOfTagsChars = `Id of element(s) with tag length ${tag.length}`;
-          if (!acc.hasOwnProperty(numberOfTagsChars)) {
-            acc[numberOfTagsChars] = [];
-          }
-          acc[numberOfTagsChars].push(id);
-        }
-      });
-      return acc;
-    }, {});
-  };
-
-  const imagesByTagLength = countImagesByTagLength(uniqueTags, imageList);
-
-  const getImagesByTagLength = (initialTags, list) => {
-    return initialTags.reduce((acc, tag) => {
-      list.forEach(({ id, tags }) => {
-        if (tags.includes(tag)) {
-          let numberOfTagsChars = `Count of elements with tag length ${tag.length}`;
-          if (!acc.hasOwnProperty(numberOfTagsChars)) {
-            acc[numberOfTagsChars] = 1;
-          }
-          acc[numberOfTagsChars] += 1;
-        }
-      });
-      return acc;
-    }, {});
-  };
-
-  const numberImagesByTagLength = getImagesByTagLength(uniqueTags, imageList);
+  function prettyLog(color) {
+    return `color: white; background-color: #${color}`;
+  }
 
   const showResultInLog = () => {
-    console.group('%c Task part 2', 'color: white; background-color: #D33F49');
-    console.group(
-      '%c Task part 2.1 ',
-      'color: white; background-color: #95B46A',
-    );
+    console.group('%c Task part 2 ', prettyLog('D33F49'));
+    console.group('%c Task part 2.1 ', prettyLog('95B46A'));
     console.log(
       '%c numberOfNodes ',
-      'color: white; background-color: #2274A5',
-      document.querySelectorAll('*').length,
+      prettyLog('2274A5'),
+      countNumberOfNodes(document),
     );
     console.groupEnd();
-    console.group(
-      '%c Task part 2.2',
-      'color: white; background-color: #95B46A',
-    );
-    console.log(
-      '%c imagesByTag',
-      'color: white; background-color: #2274A5',
-      imagesByTag,
-    );
-    console.log(
-      '%c numberImagesByTag',
-      'color: white; background-color: #2274A5',
-      numberImagesByTag,
-    );
+    console.group('%c Task part 2.2 ', prettyLog('95B46A'));
+    console.log('%c numberOfTags ', prettyLog('2274A5'));
+    breadthFirstDetourDom();
+    displayElementsCountInMap(mapOfTags);
+
     console.groupEnd();
-    console.group(
-      '%c Task part 2.3',
-      'color: white; background-color: #95B46A',
-    );
-    console.log(
-      '%c imagesByTagLength',
-      'color: white; background-color: #2274A5',
-      imagesByTagLength,
-    );
-    console.log(
-      '%c numberImagesByTagLength',
-      'color: white; background-color: #2274A5',
-      numberImagesByTagLength,
-    );
+    console.group('%c Task part 2.3 ', prettyLog('95B46A'));
+    console.log('%c tagsByLengthName ', prettyLog('2274A5'));
+    const mapOfElementsByTagLength = groupTagsByLengthName();
+    // console.log('%c numberTagsByLengthName ', prettyLog('2274A5'));
+    displayElementsCountInMap(mapOfElementsByTagLength);
     console.groupEnd();
     console.groupEnd();
   };

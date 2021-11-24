@@ -1,19 +1,11 @@
-import React, { useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import styles from './LastImages.module.scss';
-import { imageSelectors, operations } from '../../redux';
+import { imageSelectors } from '../../redux';
 import useWindowDementions from '../../helpers/useWindowDementions';
 
 export default function LastImages() {
-  const dispatch = useDispatch();
-
   const list = useSelector(imageSelectors.getLastImages);
-
-  const onFetchImages = useCallback(
-    () => dispatch(operations.fetchImages()),
-    [dispatch],
-  );
-  useEffect(() => onFetchImages(), [onFetchImages]);
 
   const { width } = useWindowDementions();
 

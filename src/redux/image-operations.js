@@ -91,16 +91,25 @@ const initialImages = [
 
 const fetchImages = () => async dispatch => {
   dispatch(fetchImagesRequest());
-
-  return Promise.resolve()
-    .then(() => initialImages)
-    .then(fetchImagesSuccess)
-    .then(dispatch)
-    .catch(error => {
-      // handleErrorNotification(error);
-      fetchImagesError();
-    });
+  try {
+    await Promise.resolve()
+      .then(() => initialImages)
+      .then(fetchImagesSuccess)
+      .then(dispatch);
+  } catch (error) {
+    dispatch(fetchImagesError(error));
+  }
 };
+
+//   return Promise.resolve()
+//     .then(() => initialImages)
+//     .then(fetchImagesSuccess)
+//     .then(dispatch)
+//     .catch(error => {
+//       // handleErrorNotification(error);
+//       fetchImagesError();
+//     });
+// };
 
 export default {
   fetchImages,

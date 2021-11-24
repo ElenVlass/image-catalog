@@ -1,0 +1,49 @@
+@import '../../styles/shared';
+
+.thumb {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, $start-color, $end-color);
+    opacity: 1;
+  }
+  @include from(desktop) {
+    margin-right: 15px;
+  }
+}
+.featuredImgDescription {
+  position: absolute;
+  display: block;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 15px;
+}
+
+.featuredImgTitle {
+  color: $titleTextColor;
+  margin-bottom: 7px;
+}
+
+.featuredTag {
+  margin-right: 12px;
+  font-size: 12px;
+  color: $tagsTextColor;
+}
+
+.tagList {
+  @extend %list;
+}
+.tagItem {
+  display: inline-block;
+}

@@ -5,6 +5,7 @@ import { imageSelectors } from '../../redux';
 import useWindowDementions from '../../helpers/useWindowDementions';
 import { ReactComponent as GoBackIcon } from '../../icons/back.svg';
 import { ReactComponent as GoNextIcon } from '../../icons/next.svg';
+import FeaturedCard from '../FeaturedCard';
 
 export default function FeaturedImages() {
   const list = useSelector(imageSelectors.getFeaturedImages);
@@ -20,42 +21,19 @@ export default function FeaturedImages() {
             <GoBackIcon width="20" height="20" className={styles.GoBackIcon} />
           </button>
           {list.length > 0 && (
-            <div className={styles.thumb}>
+            <FeaturedCard
+              image={list[0].image}
+              title={list[0].title}
+              tags={list[0].tags}
+            >
               <span className={styles.starSolid}></span>
-              <img src={list[0].image} alt={list[0].title} />
-              <div className={styles.featuredImgDescription}>
-                <p className={styles.featuredImgTitle}>{list[0].title}</p>
-                <ul className={styles.tagList}>
-                  {list[0].tags?.map(tag => (
-                    <li key={tag} className={styles.tagItem}>
-                      <span className={styles.featuredTag}>#{tag}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            </FeaturedCard>
           )}
           <ul className={styles.list}>
-            {list?.slice(1, 3).map(({ id, image, url, title, tags }) => (
+            {list?.slice(1, 3).map(({ id, image, title, tags }) => (
               <li key={id} className={styles.featuredItem}>
                 <span className={styles.starSolid}></span>
-                <div className={styles.thumb}>
-                  {/* <img
-                    src={defaultImg}
-                    alt={title}
-                  /> */}
-                  <img src={image} alt={title} />
-                  <div className={styles.featuredImgDescription}>
-                    <p className={styles.featuredImgTitle}>{title}</p>
-                    <ul className={styles.tagList}>
-                      {tags?.map(tag => (
-                        <li key={tag} className={styles.tagItem}>
-                          <span className={styles.featuredTag}>#{tag}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+                <FeaturedCard image={image} title={title} tags={tags} />
               </li>
             ))}
           </ul>
@@ -65,22 +43,9 @@ export default function FeaturedImages() {
         </div>
       ) : (
         <ul className={styles.list}>
-          {list?.map(({ id, image, url, title, tags }) => (
+          {list?.map(({ id, image, title, tags }) => (
             <li key={id} className={styles.featuredItem}>
-              <div className={styles.thumb}>
-                {/* <img src={defaultImg} alt={title} className={styles.picture} /> */}
-                <img src={image} alt={title} />
-                <div className={styles.featuredImgDescription}>
-                  <p className={styles.featuredImgTitle}>{title}</p>
-                  <ul className={styles.tagList}>
-                    {tags?.map(tag => (
-                      <li key={tag} className={styles.tagItem}>
-                        <span className={styles.featuredTag}>#{tag}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              <FeaturedCard image={image} title={title} tags={tags} />
             </li>
           ))}
         </ul>

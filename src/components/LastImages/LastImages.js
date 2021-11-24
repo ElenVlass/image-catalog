@@ -14,7 +14,7 @@ export default function LastImages() {
       <h2 className={styles.lastImgHeading}>Last images</h2>
       <div className={styles.desktopHolder}>
         <ul className={styles.list}>
-          {list?.map(({ id, image, url, title, tags }) => (
+          {list?.map(({ id, image, title, tags }) => (
             <li key={id} className={styles.lastItem}>
               {width >= 960 && <span className={styles.starRegular}></span>}
               <img src={image} alt={title} />

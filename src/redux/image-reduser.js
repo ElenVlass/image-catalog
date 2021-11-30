@@ -15,7 +15,7 @@ const loading = createReducer(false, {
 });
 
 const error = createReducer(null, {
-  [fetchImagesError]: state => state,
+  [fetchImagesError]: (_, { payload }) => payload,
 });
 
 export default combineReducers({ images, loading, error });
